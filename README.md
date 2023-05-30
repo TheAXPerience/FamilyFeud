@@ -20,6 +20,10 @@ The program will accept two command-line arguments: the first is a flag determin
 We will use binary store (.store) files to keep track of the questions and answers, using the PStore module in Ruby.
 THe program will allow users to name a file and prompt them for questions, answers, and alternate answers.
 
+**EDIT 5/30/2023**
+
+Using JSON format instead. That way the answers and questions can be stored in a hierarchical format instead of a key-value storage.
+
 ### Playing the Game
 
 The game will read the questions and answers from the given file and prompt the user for two team names. THe two teams will then begin playing a game of Family Feud. When a question is finished, the game will show all answers that have not been guessed.
