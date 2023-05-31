@@ -1,0 +1,84 @@
+[
+  {
+    "question": "What is your favorite color?",
+    "answers": [
+      {
+        "answer": "Blue",
+        "accepted": [
+          "blue"
+        ],
+        "points": 70
+      },
+      {
+        "answer": "Red",
+        "accepted": [
+          "red"
+        ],
+        "points": 25
+      },
+      {
+        "answer": "Green",
+        "accepted": [
+          "green"
+        ],
+        "points": 5
+      }
+    ]
+  },
+  {
+    "question": "What is your favorite food?",
+    "answers": [
+      {
+        "answer": "Pizza",
+        "accepted": [
+          "pizza"
+        ],
+        "points": 35
+      },
+      {
+        "answer": "Omelette",
+        "accepted": [
+          "omelette",
+          "omelet"
+        ],
+        "points": 34
+      },
+      {
+        "answer": "Chocolate",
+        "accepted": [
+          "chocolate",
+          "milk chocolate",
+          "white chocolate",
+          "dark chocolate"
+        ],
+        "points": 31
+      }
+    ]
+  },
+  {
+    "question": "What is your favorite Roman numeral?",
+    "answers": [
+      {
+        "answer": "I",
+        "accepted": [
+          "i"
+        ],
+        "points": 75
+      },
+      {
+        "answer": "II",
+        "accepted": [
+          "ii"
+        ],
+        "points": 24
+      },
+      {
+        "answer": "V",
+        "accepted": [
+          "v"
+        ],
+        "points": 1
+      }
+    ]
+  }
+]
