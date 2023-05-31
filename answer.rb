@@ -17,6 +17,10 @@ class Answer
         return !@answered &&  @accepted.include?(answer)
     end
 
+    def to_s()
+        return "#{@answer} (#{points}) [#{@accepted.join(', ')}]"
+    end
+
     def serialize()
         ans = {}
         ans["answer"] = @answer

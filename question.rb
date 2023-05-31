@@ -14,7 +14,7 @@ class Question
 
     def getSortedAnswers()
         return @answers.sort_by do | answer |
-            return -1 * answer.points
+            -1 * answer.points
         end
     end
 
@@ -23,6 +23,14 @@ class Question
             return a if a.correct?(answer)
         end
         return nil
+    end
+
+    def to_s()
+        ret = "#{@question}"
+        getSortedAnswers().each do |answer|
+            ret += "\n\t#{answer.to_s()}"
+        end
+        return ret
     end
 
     def serialize()

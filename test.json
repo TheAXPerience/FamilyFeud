@@ -7,21 +7,21 @@
         "accepted": [
           "blue"
         ],
-        "points": 70
+        "points": 32
       },
       {
         "answer": "Red",
         "accepted": [
           "red"
         ],
-        "points": 25
+        "points": 35
       },
       {
         "answer": "Green",
         "accepted": [
           "green"
         ],
-        "points": 5
+        "points": 33
       }
     ]
   },
