@@ -37,8 +37,24 @@ class PlayManager
                 print 'X'
             end
         end
-        puts "TOTAL: #{point_total} #".left(95, ' ')
+        puts "TOTAL: #{point_total} #".ljust(95, ' ')
         puts "".center(100, '#') + "\n"
+    end
+
+    def print_team_points()
+        puts "".center(100, '#')
+        print '#'
+        print @teams[0].name.center(48, ' ')
+        print '##'
+        print @teams[1].name.center(48, ' ')
+        puts '#'
+        puts "".center(100, '#')
+        print '#'
+        print "#{@teams[0].points}".center(48, ' ')
+        print '##'
+        print "#{teams[1].points}".center(48, ' ')
+        puts '#'
+        puts "".center(100, '#')
     end
 
     def start_round(question, multiplier=1)
@@ -82,15 +98,19 @@ class PlayManager
         @teams << Team.new(STDIN.gets.chomp)
         
         # round 1
+        print_team_points()
         start_round(@questions_list[0], 1)
 
         # round 2
+        print_team_points()
         start_round(@questions_list[1], 2)
 
         # round 3
+        print_team_points()
         start_round(@questions_list[2], 3)
 
         # lightning round
+        print_team_points()
         advancing_team = @teams[0]
         if @teams[1].points > @teams[0].points
             advancing_team = @teams[1]
