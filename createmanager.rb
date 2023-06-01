@@ -10,7 +10,7 @@ class CreateManager
 
     def accept_loop(answer)
         loop do
-             print "Enter alternate answer (empty to quit): "
+            print "\nEnter alternate answer (empty to quit): "
             input = STDIN.gets.chomp.downcase
             if input.length == 0
                 break
@@ -22,6 +22,7 @@ class CreateManager
 
     def answer_loop(question)
         loop do
+            puts "".center(50, '-')
             print "Enter answer (empty to quit): "
             input = STDIN.gets.chomp
             if input.length == 0
@@ -40,6 +41,7 @@ class CreateManager
 
     def question_loop()
         loop do
+            puts "".center(50, '#')
             print "Enter question (empty to quit): "
             input = STDIN.gets.chomp
             if input.length == 0
@@ -50,16 +52,18 @@ class CreateManager
             answer_loop(question)
             @questions_list << question
         end
+        puts "".center(50, '#')
     end
 
     def start()
         puts "Create a new Family Feud-compatible file"
-        puts "A file must have at least 8 questions to play a full game"
+        puts "A file must have at least 8 questions to play a full game\n"
 
         # Prompt user for as many questions as they desire
         question_loop()
 
         # take all questions and answers and save to file
         FileManager.write_file(@filename, @questions_list)
+        puts "Questions saved to #{@filename}".center(50, ' ')
     end
 end
