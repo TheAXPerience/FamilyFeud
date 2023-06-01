@@ -15,6 +15,32 @@ class PlayManager
         @teams = []
     end
 
+    def print_current_results(question, answers, point_total, strikes=0)
+        puts "".center(100, '#')
+        puts '# ' + question.center(96, ' ') + ' #'
+        puts "".center(100, '#')
+
+        answers.each do |answer|
+            if answer.answered
+                puts '# ' + "#{answer.answer} (#{answer.points})".center(96, ' ') + ' #'
+            else
+                puts '# ' + "???".center(96, ' ') + ' #'
+            end
+            puts "".center(100, '#')
+        end
+
+        print '# '
+        for i in (1..3)
+            if i > strikes
+                print ' '
+            else
+                print 'X'
+            end
+        end
+        puts "TOTAL: #{point_total} #".left(95, ' ')
+        puts "".center(100, '#') + "\n"
+    end
+
     def start_round(question, multiplier=1)
         answers = question.getSortedAnswers()
         left = answers.length
