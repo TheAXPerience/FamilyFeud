@@ -15,11 +15,14 @@ class PlayManager
         @teams = []
     end
 
-    def print_current_results(question, answers, point_total, strikes=0)
+    def print_question(question)
         puts "".center(100, '#')
         puts '# ' + question.question.center(96, ' ') + ' #'
         puts "".center(100, '#')
+    end
 
+    def print_current_results(answers, point_total, strikes=0)
+        puts "".center(100, '#')
         answers.each do |answer|
             if answer.answered
                 puts '# ' + "#{answer.answer.upcase} (#{answer.points})".center(96, ' ') + ' #'
@@ -64,6 +67,9 @@ class PlayManager
         point_total = 0
         curr_team = [0, 1].sample()
 
+        print_current_results(answers, 0)
+        puts "There are #{left} answers on the board!\n"
+
         # Query both teams to get an answer
         # Continue until one team gets an answer
         maxes = [0, 0]
@@ -74,23 +80,24 @@ class PlayManager
             end
 
             puts "#{@teams[curr_team].name}'s turn!"
-            puts question.question
+            print_question(question)
             print "Enter guess: "
             guess = gets.chomp.downcase
             ans = question.correct?(guess)
             if ans == nil
-                print_current_results(question, answers, point_total, 1)
-                curr_team = (curr_team + 1) % 2
+                print_current_results(answers, point_total, 1)
             else
                 ans.answered = true
                 point_total += (ans.points * multiplier)
                 left -= 1
                 maxes[curr_team] = ans.points
-                print_current_results(question, answers, point_total, 0)
+                print_current_results(answers, point_total, 0)
                 if ans.points == highest
                     break
                 end
             end
+
+            curr_team = (curr_team + 1) % 2
             puts "".center(100, '-')
         end
 
@@ -110,23 +117,27 @@ class PlayManager
         if left > 0
             other_team = (curr_team + 1) % 2
             puts "Time to steal, Team #{@teams[other_team].name}!"
+            print_question(question)
             print "Enter guess: "
             guess = gets.chomp.downcase
             ans = question.correct?(guess)
             if ans == nil
-                print_current_results(question, answers, point_total, 1)
+                print_current_results(answers, point_total, 1)
             else
                 ans.answered = true
-                print_current_results(question, answers, point_total, 0)
+                print_current_results(answers, point_total, 0)
                 curr_team = other_team
             end
         end
 
         # show rest of answers and allocate points
+        puts "\nNow for the rest of the answers:"
         for ans in answers
             ans.answered = true
         end
-        print_current_results(question, answers, point_total)
+        print_current_results(answers, point_total)
+
+        puts "Team #{@teams[curr_team].name} gets #{point_total} points!"
         @teams[curr_team].points += point_total
     end
 
