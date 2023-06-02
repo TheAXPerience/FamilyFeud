@@ -11,7 +11,7 @@ end
 class PlayManager
     def initialize(filename)
         @filename = filename
-        @questions_list = FileManager.read_file(@filename)
+        @questions_list = FileManager.read_file(@filename).shuffle()
         @teams = []
     end
 
@@ -23,11 +23,11 @@ class PlayManager
 
     def print_current_results(answers, point_total, strikes=0)
         puts "".center(100, '#')
-        answers.each do |answer|
+        answers.each_with_index do |answer, index|
             if answer.answered
-                puts '# ' + "#{answer.answer.upcase} (#{answer.points})".center(96, ' ') + ' #'
+                puts '#' + "#{answer.answer.upcase}".center(91, ' ') + '#' + "#{answer.points}".center(6, ' ') +  '#'
             else
-                puts '# ' + "???".center(96, ' ') + ' #'
+                puts '# ' + "( #{index+1} )".center(96, ' ') + ' #'
             end
             puts "".center(100, '#')
         end
@@ -40,8 +40,9 @@ class PlayManager
                 print 'X'
             end
         end
-        puts "TOTAL: #{point_total} #".ljust(95, ' ')
-        puts "".center(100, '#') + "\n"
+        puts "TOTAL: #{point_total} #".rjust(95, ' ')
+        puts "".center(100, '#')
+        puts
     end
 
     def print_team_points()
@@ -55,7 +56,7 @@ class PlayManager
         print '#'
         print "#{@teams[0].points}".center(48, ' ')
         print '##'
-        print "#{teams[1].points}".center(48, ' ')
+        print "#{@teams[1].points}".center(48, ' ')
         puts '#'
         puts "".center(100, '#')
     end
@@ -68,7 +69,8 @@ class PlayManager
         curr_team = [0, 1].sample()
 
         print_current_results(answers, 0)
-        puts "There are #{left} answers on the board!\n"
+        puts "There are #{left} answers on the board!"
+        puts "Now, which team shall play?"
 
         # Query both teams to get an answer
         # Continue until one team gets an answer
@@ -78,75 +80,101 @@ class PlayManager
             if maxes[curr_team] > 0
                 break
             end
+            puts "".center(100, '-')
 
-            puts "#{@teams[curr_team].name}'s turn!"
+            puts "Team #{@teams[curr_team].name}'s turn!".rjust(100, ' ')
             print_question(question)
             print "Enter guess: "
-            guess = gets.chomp.downcase
+            guess = STDIN.gets.chomp.downcase
             ans = question.correct?(guess)
             if ans == nil
                 print_current_results(answers, point_total, 1)
+                puts "Incorrect!"
             else
                 ans.answered = true
                 point_total += (ans.points * multiplier)
                 left -= 1
                 maxes[curr_team] = ans.points
                 print_current_results(answers, point_total, 0)
+                puts "Correct! That was #{ans.points} points!"
                 if ans.points == highest
                     break
                 end
             end
 
             curr_team = (curr_team + 1) % 2
-            puts "".center(100, '-')
         end
 
         curr_team = maxes[0] > maxes[1] ? 0 : 1
-        print "Team #{@teams[curr_team]}, Pass or Play? "
-        input = gets.chomp.downcase
+        puts "".center(100, '-')
+        print "Team #{@teams[curr_team].name}, Pass or Play? "
+        input = STDIN.gets.chomp.downcase
         if input == "pass"
             curr_team = (curr_team + 1) % 2
         end
 
         # Play until either the team runs out of strikes or guesses all the answers
         while strikes < 3 && left > 0
-            strikes += 1
+            puts "".center(100, '-')
+            puts "Team #{@teams[curr_team].name}".rjust(100, ' ')
+            print_question(question)
+            print "Enter guess: "
+            guess = STDIN.gets.chomp.downcase
+            ans = question.correct?(guess)
+            if ans == nil
+                strikes += 1
+                print_current_results(answers, point_total, strikes)
+                puts "Incorrect!"
+            else
+                ans.answered = true
+                point_total += (ans.points * multiplier)
+                left -= 1
+                print_current_results(answers, point_total, strikes)
+                puts "Correct! That was #{ans.points} points!"
+            end
         end
 
         # if there are still answers left to guess, allow the other team to attempt to steal
         if left > 0
             other_team = (curr_team + 1) % 2
-            puts "Time to steal, Team #{@teams[other_team].name}!"
+            puts "".center(100, '-')
+            puts "Time to steal, Team #{@teams[other_team].name}!".rjust(100, ' ')
             print_question(question)
             print "Enter guess: "
-            guess = gets.chomp.downcase
+            guess = STDIN.gets.chomp.downcase
             ans = question.correct?(guess)
             if ans == nil
                 print_current_results(answers, point_total, 1)
+                puts "Incorrect!"
             else
                 ans.answered = true
                 print_current_results(answers, point_total, 0)
                 curr_team = other_team
+                puts "Correct!"
             end
         end
 
         # show rest of answers and allocate points
+        puts "Team #{@teams[curr_team].name} gets #{point_total} points!"
+        @teams[curr_team].points += point_total
+
         puts "\nNow for the rest of the answers:"
         for ans in answers
             ans.answered = true
         end
         print_current_results(answers, point_total)
-
-        puts "Team #{@teams[curr_team].name} gets #{point_total} points!"
-        @teams[curr_team].points += point_total
     end
 
     def start_lightning_round(questions, team)
         point_total = 0
 
-        # ask 5 questions to one player
-        # ask the same 5 questions to another player
-        # check if total points exceeds 200
+        # TODO: ask 5 questions to one player
+        # TODO: ask the same 5 questions to another player
+        # TODO: check if total points exceeds 200
+        puts "Lightning Round! With Team #{team.name}!"
+        for question in questions
+            puts question
+        end
     end
 
     def start()
@@ -156,7 +184,6 @@ class PlayManager
         end
 
         puts "Welcome to the game of Family Feud!"
-        @questions_list.shuffle()
 
         # get team names
         print "Enter the name of the first family: "
@@ -165,19 +192,30 @@ class PlayManager
         @teams << Team.new(STDIN.gets.chomp)
         
         # round 1
+        puts " SCOREBOARD ".center(100, '*')
         print_team_points()
+        puts "\nIt's time for Round 1! Press Enter to continue."
+        STDIN.gets
         start_round(@questions_list[0], 1)
 
         # round 2
+        puts " SCOREBOARD ".center(100, '*')
         print_team_points()
+        puts "\nIt's time for Round 2! Press Enter to continue."
+        STDIN.gets
         start_round(@questions_list[1], 2)
 
         # round 3
+        puts " SCOREBOARD ".center(100, '*')
         print_team_points()
+        puts "\nIt's time for Round 3! Press Enter to continue."
+        STDIN.gets
         start_round(@questions_list[2], 3)
 
         # lightning round
+        puts " SCOREBOARD ".center(100, '*')
         print_team_points()
+        puts
         advancing_team = @teams[0]
         if @teams[1].points > @teams[0].points
             advancing_team = @teams[1]
@@ -186,5 +224,9 @@ class PlayManager
             advancing_team = @teams.sample()
         end
         start_lightning_round(@questions_list.slice(3, 5), advancing_team)
+
+        puts "".center(100, '*')
+        puts '*' + "Thank you so much for playing!".center(98, ' ') + '*'
+        puts "".center(100, '*')
     end
 end
