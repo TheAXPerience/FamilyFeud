@@ -1,4 +1,5 @@
 require "./filemanager"
+require "./answer"
 
 class Team
     attr_accessor :name, :points
@@ -166,14 +167,84 @@ class PlayManager
     end
 
     def start_lightning_round(questions, team)
+        puts "".center(100, '-')
+        puts "LIGHTNING ROUND!".center(100, ' ')
         point_total = 0
 
         # TODO: ask 5 questions to one player
+        answers_one = []
+        answers_two = []
+
+        puts "".center(100, '*')
+        puts "Player 1's turn".rjust(100, ' ')
+        print "Press Enter To Begin "
+        STDIN.gets.chomp
+        questions.each do |question|
+            print_question(question)
+            print "Enter guess: "
+            guess = STDIN.gets.chomp.downcase
+            ans = question.correct?(guess)
+            if ans == nil
+                ans = Answer.new("", 0)
+            end
+            answers_one < [guess, ans]
+            point_total += ans.points
+        end
+
+        puts "\n" +  " RESULTS ".center(100, '*')
+        puts "".center(100, '#')
+        for i in (0...5)
+            puts '#' + answers_one[i][0].upcase.center(40, ' ') + '#' + "#{answers_one[i][1].points}".center(5, ' ') + '##' + "".center(46, ' ') + '#'
+            puts "".center(100, '#')
+        end
+        puts "TOTAL POINTS: #{point_total}".rjust(100, ' ')
+
         # TODO: ask the same 5 questions to another player
+        puts "".center(100, '*')
+        puts "Player 2's turn".rjust(100, ' ')
+        print "Press Enter To Begin "
+        STDIN.gets.chomp
+        questions.each do |question|
+            print_question(question)
+            same = true
+            while same
+                print "Enter guess: "
+                guess = STDIN.gets.chomp.downcase
+                ans = question.correct?(guess)
+                if ans == nil
+                    ans = Answer.new("", 0)
+                end
+                # reset loop if equal answer was seen
+                same = false
+                answer_one.each do |ans1|
+                    if ans1[1].equal?(ans)
+                        same = true
+                    end
+                end
+                if same
+                    puts "Choose another answer."
+                end
+            end
+
+            answers_two < [guess, ans]
+            point_total += ans.points
+        end
+
+        puts "".center(100, '#')
+        for i in (0...5)
+            puts '#' + answers_one[i][0].upcase.center(40, ' ') + '#' + "#{answers_one[i][1].points}".center(5, ' ') + '##' + answers_two[i][0].upcase.center(40, ' ') + '#' + "#{answers_two[i][1].points}".center(5, ' ') + '#'
+            puts "".center(100, '#')
+        end
+        puts '#' + "TOTAL POINTS: #{point_total} #".rjust(99, ' ')
+        puts "".center(100, '#')
+        puts
+
         # TODO: check if total points exceeds 200
-        puts "Lightning Round! With Team #{team.name}!"
-        for question in questions
-            puts question
+        puts "".center(100, '*')
+        if point_total >= 200
+            puts '* ' + "TEAM #{team.name} WINS!".center(96, ' ') + ' *'
+        else
+            puts '* ' + "BETTER LUCK NEXT TIME, TEAM #{team.name}.".center(96, ' ') + ' *'
         end
     end
 
