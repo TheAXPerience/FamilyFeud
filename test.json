@@ -7,22 +7,41 @@
         "accepted": [
           "blue"
         ],
-        "points": 32
+        "points": 24
       },
       {
         "answer": "Red",
         "accepted": [
           "red"
         ],
-        "points": 35
+        "points": 27
       },
       {
         "answer": "Green",
         "accepted": [
           "green"
         ],
-        "points": 33
-      }
+        "points": 22
+      },{
+        "answer": "Purple/Violet",
+        "accepted": [
+          "purple",
+          "violet"
+        ],
+        "points": 12
+      },{
+        "answer": "Yellow",
+        "accepted": [
+          "yellow"
+        ],
+        "points": 11
+      },{
+        "answer": "Orange",
+        "accepted": [
+          "orange"
+        ],
+        "points": 4
+      },
     ]
   },
   {
@@ -41,7 +60,7 @@
           "omelette",
           "omelet"
         ],
-        "points": 34
+        "points": 10
       },
       {
         "answer": "Chocolate",
@@ -51,8 +70,24 @@
           "white chocolate",
           "dark chocolate"
         ],
-        "points": 31
-      }
+        "points": 20
+      },
+      {
+        "answer": "French Fries",
+        "accepted": [
+          "french fries",
+          "fries"
+        ],
+        "points": 24
+      },
+      {
+        "answer": "Pancakes",
+        "accepted": [
+          "pancake",
+          "pancakes"
+        ],
+        "points": 11
+      },
     ]
   },
   {
@@ -63,7 +98,7 @@
         "accepted": [
           "i"
         ],
-        "points": 75
+        "points": 58
       },
       {
         "answer": "II",
@@ -78,7 +113,235 @@
           "v"
         ],
         "points": 1
+      },
+      {
+        "answer": "X",
+        "accepted": [
+          "x"
+        ],
+        "points": 17
       }
+    ]
+  },
+  {
+    "question": "Name a Pokemon.",
+    "answers": [
+      {
+        "answer": "Pikachu",
+        "accepted": [
+          "pikachu"
+        ],
+        "points": 45
+      },
+      {
+        "answer": "Charizard",
+        "accepted": [
+          "charizard"
+        ],
+        "points": 35
+      },
+      {
+        "answer": "Eevee",
+        "accepted": [
+          "eevee"
+        ],
+        "points": 15
+      },
+      {
+        "answer": "Lucario",
+        "accepted": [
+          "lucario"
+        ],
+        "points": 10
+      }
+    ]
+  },
+  {
+    "question": "Name a character from the Donkey Kong Country series.",
+    "answers": [
+      {
+        "answer": "Donkey Kong",
+        "accepted": [
+          "donkey kong",
+          "dk"
+        ],
+        "points": 70
+      },
+      {
+        "answer": "Diddy Kong",
+        "accepted": [
+          "diddy kong",
+          "diddy"
+        ],
+        "points": 29
+      },
+      {
+        "answer": "Funky Kong",
+        "accepted": [
+          "funky kong",
+          "funky"
+        ],
+        "points": 1
+      }
+    ]
+  },
+  {
+    "question": "Name a number.",
+    "answers": [
+      {
+        "answer": "1",
+        "accepted": [
+          "1",
+          "one"
+        ],
+        "points": 15
+      },
+      {
+        "answer": "2",
+        "accepted": [
+          "two",
+          "2"
+        ],
+        "points": 9
+      },{
+        "answer": "3",
+        "accepted": [
+          "three",
+          "3"
+        ],
+        "points": 11
+      },{
+        "answer": "4",
+        "accepted": [
+          "four",
+          "4"
+        ],
+        "points": 12
+      },{
+        "answer": "5",
+        "accepted": [
+          "five",
+          "5"
+        ],
+        "points": 13
+      },{
+        "answer": "7",
+        "accepted": [
+          "7",
+          "seven"
+        ],
+        "points": 20
+      },{
+        "answer": "6",
+        "accepted": [
+          "six",
+          "6"
+        ],
+        "points": 4
+      },{
+        "answer": "9",
+        "accepted": [
+          "9",
+          "nine"
+        ],
+        "points": 16
+      },
+    ]
+  },
+  {
+    "question": "Name a Pokemon type.",
+    "answers": [
+      {
+        "answer": "Fire",
+        "accepted": [
+          "fire"
+        ],
+        "points": 27
+      },
+      {
+        "answer": "Water",
+        "accepted": [
+          "water"
+        ],
+        "points": 23
+      },
+      {
+        "answer": "Electric",
+        "accepted": [
+          "electric",
+          "thunder"
+        ],
+        "points": 23
+      },
+      {
+        "answer": "Grass",
+        "accepted": [
+          "grass"
+        ],
+        "points": 15
+      },
+      {
+        "answer": "Dragon",
+        "accepted": [
+          "dragon"
+        ],
+        "points": 12
+      },
+    ]
+  },
+  {
+    "question": "Name a character in Super Smash Brothers Ultimate.",
+    "answers": [
+      {
+        "answer": "Kirby",
+        "accepted": [
+          "kirby"
+        ],
+        "points": 40
+      },
+      {
+        "answer": "Mario",
+        "accepted": [
+          "mario"
+        ],
+        "points": 18
+      },
+      {
+        "answer": "Luigi",
+        "accepted": [
+          "luigi"
+        ],
+        "points": 14
+      },
+      {
+        "answer": "Samus",
+        "accepted": [
+          "samus"
+        ],
+        "points": 12
+      },
+      {
+        "answer": "Zelda",
+        "accepted": [
+          "zelda"
+        ],
+        "points": 11
+      },
+      {
+        "answer": "Yoshi",
+        "accepted": [
+          "yoshi"
+        ],
+        "points": 3
+      },
+      {
+        "answer": "Captain Falcon",
+        "accepted": [
+          "captain falcon",
+          "falcon"
+        ],
+        "points": 2
+      },
     ]
   }
 ]
