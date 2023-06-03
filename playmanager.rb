@@ -187,7 +187,7 @@ class PlayManager
             if ans == nil
                 ans = Answer.new("", 0)
             end
-            answers_one < [guess, ans]
+            answers_one << [guess, ans]
             point_total += ans.points
         end
 
@@ -216,7 +216,7 @@ class PlayManager
                 end
                 # reset loop if equal answer was seen
                 same = false
-                answer_one.each do |ans1|
+                answers_one.each do |ans1|
                     if ans1[1].equal?(ans)
                         same = true
                     end
@@ -226,10 +226,11 @@ class PlayManager
                 end
             end
 
-            answers_two < [guess, ans]
+            answers_two << [guess, ans]
             point_total += ans.points
         end
 
+        puts "\n" +  " RESULTS ".center(100, '*')
         puts "".center(100, '#')
         for i in (0...5)
             puts '#' + answers_one[i][0].upcase.center(40, ' ') + '#' + "#{answers_one[i][1].points}".center(5, ' ') + '##' + answers_two[i][0].upcase.center(40, ' ') + '#' + "#{answers_two[i][1].points}".center(5, ' ') + '#'
@@ -294,6 +295,7 @@ class PlayManager
             puts "It's a tie! Winner will be chosen at random!"
             advancing_team = @teams.sample()
         end
+        puts "Team #{advancing_team.name} is moving on to the Lightning Round!".upcase.center(100, ' ')
         start_lightning_round(@questions_list.slice(3, 5), advancing_team)
 
         puts "".center(100, '*')
